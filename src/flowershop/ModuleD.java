@@ -28,11 +28,11 @@ public class ModuleD {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+
     }
-    
-    public static void recordTimestamp(){
-            
+
+    public static void recordTimestamp() {
+
         // TODO code application logic here
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -121,7 +121,30 @@ public class ModuleD {
             }
 
         } while (!choose.equals("n"));
-        
+
         FlowerShop.StaffMenu();
     }
+
+    public static void DisplayOrder() {
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        List<Order> order = new ArrayList<>();
+
+        order.add(new Order(1001, "Lucas", "27/11/2018", "Self Pick-up", "Pending", "Pending", "40"));
+        order.add(new Order(1002, "Kelly", "28/11/2018", "Self Pick-up", "Pending", "Pending", "30"));
+        order.add(new Order(1003, "Haw", "27/11/2018", "Self Pick-up", "Pending", "Pending", "50"));
+        order.add(new Order(1004, "Mong", "28/11/2018", "Self Pick-up", "Pending", "Pending", "10"));
+        order.add(new Order(1005, "Jonathan", "28/11/2018", "Delivery", "Pending", "Pending", "80"));
+
+        System.out.println("No\t Name\t Date(DD/MM/YYYY)  Pick-up Status  Price(RM)\tPayment Status\tTimestamp");
+        System.out.println("-------------------------------------------------------------------------------------------");
+        for (int i = 0; i < order.size(); i++) {
+            if (order.get(i).getDate().equals(formatter.format(date))) {
+                System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp());
+            }
+        }
+    }
+
 }
