@@ -16,15 +16,17 @@ public class Order {
     private String pickUpStatus;
     private String paymentStatus;
     private String timestamp;
+    private String price;
 
     
-    public Order(int orderId, String name, String date, String pickUpStatus, String paymentStatus, String timestamp) {
+    public Order(int orderId, String name, String date, String pickUpStatus, String paymentStatus, String timestamp, String price) {
         this.orderId = orderId;
         this.name = name;
         this.date = date;
         this.pickUpStatus = pickUpStatus;
         this.paymentStatus = paymentStatus;
         this.timestamp = timestamp;
+        this.price = price;
     }
 
     public int getOrderId() {
@@ -73,6 +75,14 @@ public class Order {
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
     
     

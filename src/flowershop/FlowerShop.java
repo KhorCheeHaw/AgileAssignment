@@ -436,13 +436,13 @@ public class FlowerShop {
         floral1 = new FloralManagement("3", "abc", "15", "20");
         floral.add(floral1);
         
-        order1 = new Order(1001, "Lucas", "11/11/2018", "Self Pick-up", "Pending", "         Pending");
+        order1 = new Order(1001, "Lucas", "11/11/2018", "Self Pick-up", "Pending", "         Pending", "20");
         order.add(order1);
-        order1 = new Order(1002, "Kelly", "11/11/2018", "Self Pick-up", "Pending", "         Pending");
+        order1 = new Order(1002, "Kelly", "11/11/2018", "Self Pick-up", "Pending", "         Pending", "20");
         order.add(order1);
-        order1 = new Order(1003, "Haw", "11/11/2018", "Self Pick-up", "Pending", "         Pending");
+        order1 = new Order(1003, "Haw", "11/11/2018", "Self Pick-up", "Pending", "         Pending", "20");
         order.add(order1);
-        order1 = new Order(1004, "Mong", "11/11/2018", "Self Pick-up", "Pending", "         Pending");
+        order1 = new Order(1004, "Mong", "11/11/2018", "Self Pick-up", "Pending", "         Pending", "20");
         order.add(order1);
     }
    
