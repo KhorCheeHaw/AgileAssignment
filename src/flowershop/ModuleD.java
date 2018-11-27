@@ -7,7 +7,7 @@ package flowershop;
 
 /**
  *
- * @author User
+ * @author
  */
 import java.sql.Timestamp;
 import java.util.Scanner;
