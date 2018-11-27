@@ -11,12 +11,12 @@ import java.util.Scanner;
 
 /**
  *
- * @author Kelly
+ * @author Kelly //
  */
 public class CatalogOrder {
 
     /**
-     * @param args the command line arguments
+     * @param args the command line arguments 
      */
     static List<Category> cc = new ArrayList<>();
     static List<Order> order = new ArrayList<Order>();
