@@ -5,36 +5,27 @@
  */
 package flowershop;
 
+/**
+ *
+ * @author User
+ */
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 /**
  *
- * @author Kelly //
+ * @author Kelly
  */
 public class CatalogOrder {
 
     /**
-     * @param args the command line arguments 
+     * @param args the command line arguments
      */
-    static List<Category> cc = new ArrayList<>();
-    static List<Order> order = new ArrayList<Order>();
-    private static Scanner sc = new Scanner(System.in);
-
     public static void main(String[] args) {
-
-        cc.add(new Category("Flower", "F01", "Rose", 10, 10.50, "High"));
-        cc.add(new Category("Bouquet", "B01", "Posy", 3, 10.50, "Finish"));
-        cc.add(new Category("FloralArrangement", "FA01", "Oval", 3, 10.50, "Low"));
         Scanner sc = new Scanner(System.in);
-//        System.out.print("Please enter order id: ");
-//        while (!sc.hasNextInt()) {
-//            System.out.print("Please type again (eg:1001):");
-//            sc.next();
-//            int orderId = sc.nextInt();
-      //  }
-
+        System.out.print("Please enter order id: ");
+        sc.nextInt();
         menu();
 
     }
@@ -44,7 +35,7 @@ public class CatalogOrder {
         System.out.print("\n1. Fresh Flower\n");
         System.out.print("2. Bouquets\n");
         System.out.print("3. Floral Management\n");
-        System.out.print("Please select : ");
+        System.out.print("Please select the categories: ");
 
         int select = sc.nextInt();
 
@@ -63,43 +54,33 @@ public class CatalogOrder {
 
     public static void bouquet() {
 
-        // List<Category> cc = new ArrayList<>();
+        List<Bouquets> bouquets = new ArrayList<Bouquets>();
+
         String choice;
-        String pickMethod;
-        double price;
-        double totalPrice = 0;
-         System.out.print("Please enter order id: ");
-         
-        while (!sc.hasNextInt()) {
-            System.out.print("Please type again (eg:1001):");
-            sc.nextInt();
-            
-        }
-        int orderId = sc.nextInt();
-        
-//
-//        cc.add(new Category("Flower", "F01", "Rose", 10, 10.50, "High"));
-//        cc.add(new Category("Bouquet", "B01", "Posy", 0, 10.50, "Finish"));
-//        cc.add(new Category("FloralArrangement", "FA01", "Oval", 3, 10.50, "Low"));
+        int price;
+        int totalPrice = 0;
+
+        bouquets.add(new Bouquets("1", "rose", "15", "20"));
+        bouquets.add(new Bouquets("2", "abc", "15", "20"));
+        bouquets.add(new Bouquets("3", "abc", "15", "20"));
 
         do {
 
-            System.out.println("ID\t\t Type\t\t Price(RM)\t\t Quantity\t\tStock ");
+            System.out.println("Id\t Bouquet Type\t Quantity  Price ");
             System.out.println("--------------------------------------");
-            for (int i = 0; i < cc.size(); i++) {
-                if (cc.get(i).getcQuantity() > 0 && cc.get(i).getCategory().equals("Bouquet")) {
-                    System.out.println(cc.get(i).getcID() + "\t " + cc.get(i).getcType() + "\t\t " + cc.get(i).getcPrice() + "\t   " + cc.get(i).getcQuantity() + "\t   " + cc.get(i).getStock());
-                }
+            for (int i = 0; i < bouquets.size(); i++) {
+                System.out.println(bouquets.get(i).getBouquetId() + "\t " + bouquets.get(i).getBouquetType() + "\t\t " + bouquets.get(i).getQuantity() + "\t   " + bouquets.get(i).getPrice());
             }
 
             Scanner sc = new Scanner(System.in);
 
             System.out.print("\nPlease enter the id of bouquet: ");
-            while (!sc.hasNext()) {
-                System.out.print("Please reenter again (eg:FA01):");
+            while (!sc.hasNextInt()) {
+                System.out.print("It is not an integer,please reenter again:");
                 sc.next();
             }
-            String cID = sc.next();
+            int itemNo = sc.nextInt();
+           
 
             System.out.print("\nPlease enter the quantity of flower: ");
             while (!sc.hasNextInt()) {
@@ -107,25 +88,21 @@ public class CatalogOrder {
                 sc.next();
             }
             int quantity = sc.nextInt();
+            
 
-            for (int i = 0; i < cc.size(); i++) {
-                if ((cID).equals(cc.get(i).getcID())) {
+            for (int i = 0; i < bouquets.size(); i++) {
+                if (Integer.toString(itemNo).equals(bouquets.get(i).getBouquetId())) {
 
-                    int total = (cc.get(i).getcQuantity()) - quantity;
-                    cc.get(i).setcID(cc.get(i).getcID());
-                    cc.get(i).setcType(cc.get(i).getcType());
-                    cc.get(i).setcQuantity((total));
-                    cc.get(i).setcPrice(cc.get(i).getcPrice());
-                    cc.get(i).setStock(cc.get(i).getStock());
+                    int total = Integer.parseInt(bouquets.get(i).getQuantity()) - quantity;
+                    bouquets.get(i).setBouquetId(bouquets.get(i).getBouquetId());
+                    bouquets.get(i).setBouquetType(bouquets.get(i).getBouquetType());
+                    bouquets.get(i).setQuantity(Integer.toString(total));
+                    bouquets.get(i).setPrice(bouquets.get(i).getPrice());
 
-                    price = cc.get(i).getcPrice() * quantity;
+                    price = Integer.parseInt(bouquets.get(i).getPrice()) * quantity;
                     totalPrice += price;
                 }
             }
-
-            System.out.print("Please enter pick up method      : ");
-            System.out.print("\n(sp = self pick-up / d = delivery) ");
-            pickMethod = sc.next();
 
             System.out.print("\nDo you want to continue order?(y = yes, n = no):");
             choice = sc.next();
@@ -137,54 +114,41 @@ public class CatalogOrder {
 
             System.out.print("\nYou have chosen\n");
             System.out.print("-----------------\n");
-            System.out.print(" Id: " + cID);
+            System.out.print("Flower Id: " + itemNo);
             System.out.println("\nQuantity: " + quantity);
         } while (!"n".equals(choice));
         System.out.println("\nTotal price: " + totalPrice);
-
-        System.out.println("\nPick up method: " + pickMethod);
-
         System.out.println("\nThank you, please come again.");
-        
-         order.add(new Order(orderId, "Julius", "29/11/2018", pickMethod, "   Pending", "    Pending", String.valueOf(totalPrice)));
-     
-         System.out.println("No\t Name\t Date(DD/MM/YYYY)  Pick-up Status    Payment Status\tTimestamp\t Total Price(RM)");
-         System.out.println("-----------------------------------------------------------------------------------");
-         for (int i = 0; i < order.size(); i++) {
-                System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "     \t" + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getPrice());
-            }
-         
     }
 
     public static void flower() {
 
-          String choice;
-        String pickMethod;
-        double price;
-        double totalPrice = 0;
-//
-//        cc.add(new Category("Flower", "F01", "Rose", 10, 10.50, "High"));
-//        cc.add(new Category("Bouquet", "B01", "Posy", 0, 10.50, "Finish"));
-//        cc.add(new Category("FloralArrangement", "FA01", "Oval", 3, 10.50, "Low"));
+        List<FreshFlower> flower = new ArrayList<FreshFlower>();
+
+        String choice;
+        int price;
+        int totalPrice = 0;
+
+        flower.add(new FreshFlower("1", "Rose", "15", "20"));
+        flower.add(new FreshFlower("2", "Lily", "15", "20"));
+        flower.add(new FreshFlower("3", "Orchid", "15", "20"));
 
         do {
 
-            System.out.println("ID\t\t Type\t\t Price(RM)\t\t Quantity\t\tStock ");
-            System.out.println("--------------------------------------");
-            for (int i = 0; i < cc.size(); i++) {
-                if (cc.get(i).getcQuantity() > 0 && cc.get(i).getCategory().equals("Flower")) {
-                    System.out.println(cc.get(i).getcID() + "\t " + cc.get(i).getcType() + "\t\t " + cc.get(i).getcPrice() + "\t   " + cc.get(i).getcQuantity() + "\t   " + cc.get(i).getStock());
-                }
+            System.out.println("\nId\t Flower Type\t Quantity   Price ");
+            System.out.println("-----------------------------------------");
+            for (int i = 0; i < flower.size(); i++) {
+                System.out.println(flower.get(i).getFlowerId() + "\t " + flower.get(i).getFlowerType() + "\t\t     " + flower.get(i).getQuantity() + "\t     " + flower.get(i).getPrice());
             }
 
             Scanner sc = new Scanner(System.in);
 
-            System.out.print("\nPlease enter the id: ");
-            while (!sc.hasNext()) {
-                System.out.print("Please reenter again (eg:FA01):");
+            System.out.print("\nPlease enter the id of flower: ");
+            while (!sc.hasNextInt()) {
+                System.out.print("It is not an integer,please reenter again:");
                 sc.next();
             }
-            String cID = sc.next();
+            int itemNo = sc.nextInt();
 
             System.out.print("\nPlease enter the quantity of flower: ");
             while (!sc.hasNextInt()) {
@@ -193,24 +157,19 @@ public class CatalogOrder {
             }
             int quantity = sc.nextInt();
 
-            for (int i = 0; i < cc.size(); i++) {
-                if ((cID).equals(cc.get(i).getcID())) {
+            for (int i = 0; i < flower.size(); i++) {
+                if (Integer.toString(itemNo).equals(flower.get(i).getFlowerId())) {
 
-                    int total = (cc.get(i).getcQuantity()) - quantity;
-                    cc.get(i).setcID(cc.get(i).getcID());
-                    cc.get(i).setcType(cc.get(i).getcType());
-                    cc.get(i).setcQuantity((total));
-                    cc.get(i).setcPrice(cc.get(i).getcPrice());
-                    cc.get(i).setStock(cc.get(i).getStock());
+                    int total = Integer.parseInt(flower.get(i).getQuantity()) - quantity;
+                    flower.get(i).setFlowerId(flower.get(i).getFlowerId());
+                    flower.get(i).setFlowerType(flower.get(i).getFlowerType());
+                    flower.get(i).setQuantity(Integer.toString(total));
+                    flower.get(i).setPrice(flower.get(i).getPrice());
 
-                    price = cc.get(i).getcPrice() * quantity;
+                    price = Integer.parseInt(flower.get(i).getPrice()) * quantity;
                     totalPrice += price;
                 }
             }
-
-            System.out.print("Please enter pick up method      : ");
-            System.out.print("\n(sp = self pick-up / d = delivery) ");
-            pickMethod = sc.next();
 
             System.out.print("\nDo you want to continue order?(y = yes, n = no):");
             choice = sc.next();
@@ -222,45 +181,41 @@ public class CatalogOrder {
 
             System.out.print("\nYou have chosen\n");
             System.out.print("-----------------\n");
-            System.out.print(" Id: " + cID);
+            System.out.print("Flower Id: " + itemNo);
             System.out.println("\nQuantity: " + quantity);
+
         } while (!"n".equals(choice));
         System.out.println("\nTotal price: " + totalPrice);
-
-        System.out.println("\nPick up method: " + pickMethod);
-
         System.out.println("\nThank you, please come again.");
     }
 
     public static void floral() {
+        List<FloralManagement> floral = new ArrayList<FloralManagement>();
 
-          String choice;
-        String pickMethod;
-        double price;
-        double totalPrice = 0;
-//
-//        cc.add(new Category("Flower", "F01", "Rose", 10, 10.50, "High"));
-//        cc.add(new Category("Bouquet", "B01", "Posy", 0, 10.50, "Finish"));
-//        cc.add(new Category("FloralArrangement", "FA01", "Oval", 3, 10.50, "Low"));
+        String choice;
+        int price;
+        int totalPrice = 0;
+
+        floral.add(new FloralManagement("1", "rose", "15", "20"));
+        floral.add(new FloralManagement("2", "abc", "15", "20"));
+        floral.add(new FloralManagement("3", "abc", "15", "20"));
 
         do {
 
-            System.out.println("ID\t\t Type\t\t Price(RM)\t\t Quantity\t\tStock ");
-            System.out.println("--------------------------------------");
-            for (int i = 0; i < cc.size(); i++) {
-                if (cc.get(i).getcQuantity() > 0 && cc.get(i).getCategory().equals("FloralArrangement")) {
-                    System.out.println(cc.get(i).getcID() + "\t " + cc.get(i).getcType() + "\t\t " + cc.get(i).getcPrice() + "\t   " + cc.get(i).getcQuantity() + "\t   " + cc.get(i).getStock());
-                }
+            System.out.println("Id\t Floral Type\t Quantity  Price ");
+            System.out.println("---------------------------------------");
+            for (int i = 0; i < floral.size(); i++) {
+                System.out.println(floral.get(i).getFloraId() + "\t " + floral.get(i).getFloralType() + "\t\t " + floral.get(i).getQuantity() + "\t   " + floral.get(i).getPrice());
             }
 
             Scanner sc = new Scanner(System.in);
 
-            System.out.print("\nPlease enter the id: ");
-            while (!sc.hasNext()) {
-                System.out.print("Please reenter again (eg:FA01):");
+            System.out.print("\nPlease enter the id of floral: ");
+            while (!sc.hasNextInt()) {
+                System.out.print("It is not an integer,please reenter again:");
                 sc.next();
             }
-            String cID = sc.next();
+            int itemNo = sc.nextInt();
 
             System.out.print("\nPlease enter the quantity of flower: ");
             while (!sc.hasNextInt()) {
@@ -269,24 +224,19 @@ public class CatalogOrder {
             }
             int quantity = sc.nextInt();
 
-            for (int i = 0; i < cc.size(); i++) {
-                if ((cID).equals(cc.get(i).getcID())) {
+            for (int i = 0; i < floral.size(); i++) {
+                if (Integer.toString(itemNo).equals(floral.get(i).getFloraId())) {
 
-                    int total = (cc.get(i).getcQuantity()) - quantity;
-                    cc.get(i).setcID(cc.get(i).getcID());
-                    cc.get(i).setcType(cc.get(i).getcType());
-                    cc.get(i).setcQuantity((total));
-                    cc.get(i).setcPrice(cc.get(i).getcPrice());
-                    cc.get(i).setStock(cc.get(i).getStock());
+                    int total = Integer.parseInt(floral.get(i).getQuantity()) - quantity;
+                    floral.get(i).setFloraId(floral.get(i).getFloraId());
+                    floral.get(i).setFloralType(floral.get(i).getFloralType());
+                    floral.get(i).setQuantity(Integer.toString(total));
+                    floral.get(i).setPrice(floral.get(i).getPrice());
 
-                    price = cc.get(i).getcPrice() * quantity;
+                    price = Integer.parseInt(floral.get(i).getPrice()) * quantity;
                     totalPrice += price;
                 }
             }
-
-            System.out.print("Please enter pick up method      : ");
-            System.out.print("\n(sp = self pick-up / d = delivery) ");
-            pickMethod = sc.next();
 
             System.out.print("\nDo you want to continue order?(y = yes, n = no):");
             choice = sc.next();
@@ -298,13 +248,10 @@ public class CatalogOrder {
 
             System.out.print("\nYou have chosen\n");
             System.out.print("-----------------\n");
-            System.out.print(" Id: " + cID);
+            System.out.print("Flower Id: " + itemNo);
             System.out.println("\nQuantity: " + quantity);
         } while (!"n".equals(choice));
         System.out.println("\nTotal price: " + totalPrice);
-
-        System.out.println("\nPick up method: " + pickMethod);
-
         System.out.println("\nThank you, please come again.");
     }
 }

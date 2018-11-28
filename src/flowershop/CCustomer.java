@@ -7,7 +7,7 @@ package flowershop;
 
 /**
  *
- * @author
+ * @author User
  */
 public class CCustomer {
     private String CustId; 

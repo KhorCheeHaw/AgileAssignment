@@ -10,7 +10,7 @@ package flowershop;
  * @author User
  */
 public class Order {
-     private int orderId;
+    private String orderId;
     private String name;
     private String date;
     private String pickUpStatus;
@@ -19,7 +19,7 @@ public class Order {
     private String price;
 
     
-    public Order(int orderId, String name, String date, String pickUpStatus, String paymentStatus, String timestamp, String price) {
+    public Order(String orderId, String name, String date, String pickUpStatus, String paymentStatus, String timestamp, String price) {
         this.orderId = orderId;
         this.name = name;
         this.date = date;
@@ -29,11 +29,11 @@ public class Order {
         this.price = price;
     }
 
-    public int getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -84,6 +84,8 @@ public class Order {
     public void setPrice(String price) {
         this.price = price;
     }
+    
+    
     
     
 }

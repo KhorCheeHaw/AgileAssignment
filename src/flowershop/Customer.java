@@ -2,14 +2,13 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- **/
+ */
 package flowershop;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import flowershop.CCustomer;
-import static flowershop.FlowerShop.cust;
 import static flowershop.FlowerShop.flush;
 import static flowershop.FlowerShop.manageSelectionError;
 /**
@@ -246,134 +245,5 @@ public class Customer {
         }while(!valid);
         return custType;
         
-    }
-    
-     public static void modifyCust(){
-        int o=0;
-        String sel;
-      
-//                        String id;
-//                        String password;
-                        boolean user = false;
-//
-//                        System.out.print("Enter ur Customer id again: ");
-//                        
-//                        //s.nextLine();
-//                        cid = s.next();
-//
-//                        System.out.print("Enter ur password: ");
-//                        System.out.flush();
-//                        password = s.next();
-                        
-                        for(int i=0; i<cust.size(); i++){
-                            if(cust.equals(cust.get(i).getCustId())){
-                                System.out.println("Here is Your Details");
-                                System.out.println("Customer ID \t Name \t\t Phone Number \t Customer Type ");
-                                System.out.println(cust.get(i).getCustId() + "\t\t" + cust.get(i).getName() + "\t\t" + cust.get(i).getPhone() + "\t\t" + cust.get(i).getCustomerType());
-                                
-                                
-                                System.out.print("Do you wish to edit ur profile? (y/n)");
-                                sel = s.next();
-                                
-                                int p=0;
-                                do{
-                                    
-                                    if(sel.equals("n")){
-                                        //main(args);
-                                    }else if(sel.equals("y")){
-                                        System.out.print("Enter your new name: ");
-                                        flush();
-                                        String sname = s.nextLine();
-                    
-                                        String sphno = handlePhnoErr();
-
-                                        //flush();
-                                        String spass = passwordValidation();
-                                        
-                                        cust.get(i).setName(sname);
-                                        cust.get(i).setPhone(sphno);
-                                        cust.get(i).setPassword(spass);
-                                        user = true;
-                                        
-                                        System.out.println("Update Successfully");
-                                        
-                                    }else{
-                                        System.out.println("Invalid input");
-                                        p++;
-                                        break;
-                                    }
-                                }while(p != 0);
-                            }
-                        }  
-    }
-     
-      public static void setCreditLimit(){
-        int p=0;
-        do{
-        boolean valid = false;
-        String name;
-        String limit;
-        
-        
-        
-            System.out.println("Here is the cooperate customer which havent set Credit Limit");
-             for(int i=0 ; i<cust.size() ; i++){
-                 if(cust.get(i).getCustomerType() == "Cooperate" && cust.get(i).getCreditLimit() == "0"){
-                     System.out.println(cust.get(i).getName());
-                 }
-             }
-
-                System.out.println("Please enter the name that u want to set credit limit");
-                name = s.nextLine();
-                for(int i=0 ; i<cust.size() ; i++){
-                        if(name.equals(cust.get(i).getName())){
-                            valid = true;
-                            //tname = name;
-                        }                  
-                }
-                if(valid = false){
-                    System.out.println("Invalid Input!!!");
-                    p++;
-                }
-                else{
-                    for(int i=0 ; i<cust.size() ; i++){
-                         if(cust.equals(cust.get(i).getName())){
-                             System.out.println("Enter the credit limit for " + cust);
-                             limit = s.nextLine();
-
-                             cust.get(i).setCreditLimit(limit);
-                             System.out.println("You had successfully entered credit limit for this customer");
-                             p=0;
-                         }
-                    }
-                }
-        }while(p!=0);
-    }
-    public static void checkCreditLimit(){
-        int q1;
-        boolean valid = false;
-        
-       for(int i=0; i< cust.size(); i++){
-            if(cust.equals(cust.get(i).getCustId())){
-                if("Cooperate".equals(cust.get(i).getCustomerType())){
-                    System.out.println("Your Credit limit is RM " + cust.get(i).getCreditLimit());
-                    break;
-                } 
-                else if("Normal".equals(cust.get(i).getCustomerType())){
-                    System.out.println("Sry u dun have credit limit");
-                    break;
-                }else{
-                    
-                }     
-            }
-            
-        }
-        
-       
-        System.out.println("Enter 1 to back menu");
-                    q1 = s.nextInt();
-                    if(q1 == 1){
-                         //CustMenu();
-                    }
     }
 }
