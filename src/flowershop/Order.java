@@ -84,8 +84,5 @@ public class Order {
     public void setPrice(String price) {
         this.price = price;
     }
-    
-    
-    
-    
+
 }
