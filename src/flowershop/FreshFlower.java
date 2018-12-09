@@ -5,7 +5,7 @@
  */
 package flowershop;
 
-/**
+/*
  *
  * @author User
  */
