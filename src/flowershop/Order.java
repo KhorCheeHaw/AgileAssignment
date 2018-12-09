@@ -7,7 +7,7 @@ package flowershop;
 
 /**
  *
- * @author User
+ * @author rhfoo
  */
 public class Order {
     private String orderId;
@@ -84,5 +84,5 @@ public class Order {
     public void setPrice(String price) {
         this.price = price;
     }
-
+    
 }
