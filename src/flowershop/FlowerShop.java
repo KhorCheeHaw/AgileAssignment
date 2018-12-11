@@ -2316,7 +2316,6 @@ public class FlowerShop {
       
     }
 
-     
 
     public static void recordTimestamp() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
