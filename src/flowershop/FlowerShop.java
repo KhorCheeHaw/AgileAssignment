@@ -312,7 +312,9 @@ public class FlowerShop {
             System.out.println("2. Record Time Stamp");
             System.out.println("3. Customer Maintainance");
             System.out.println("4. Display Current Date Order");
-            System.out.println("5. Log Out");
+            System.out.println("5. Display Delivery Route");
+            System.out.println("6. Manage Consumer Payment");
+            System.out.println("7. Log Out");
             c1 = manageSelectionError();
             flush();
             switch (c1) {
@@ -333,6 +335,14 @@ public class FlowerShop {
                     System.out.println();
                     break;
                 case 5:
+                    displayDeliveryRoute();
+                    System.out.println();
+                    break;
+                case 6:
+                    manageConsumerPayment();
+                    System.out.println();
+                    break;
+                case 7:
                     flowershopMenu();
                     System.out.println();
                     break;
@@ -453,13 +463,29 @@ public class FlowerShop {
         floral1 = new FloralManagement("3", "abc", "15", "20");
         floral.add(floral1);
 
-        order1 = new Order("O01", "Lucas", "28/11/2018", "Self Pick-up", "Pending", "         Pending", "20");
+        order1 = new Order("O01", "Lucas", "12/12/2018", "Self Pick-up", "Pending", "         Pending", "20", "-");
         order.add(order1);
-        order1 = new Order("O02", "Kelly", "28/11/2018", "Self Pick-up", "Pending", "         Pending", "30");
+        order1 = new Order("O02", "Kelly", "12/12/2018", "Self Pick-up", "Pending", "         Pending", "30", "-");
         order.add(order1);
-        order1 = new Order("O03", "Haw", "28/11/2018", "Self Pick-up", "Pending", "         Pending", "40");
+        order1 = new Order("O03", "Haw", "12/12/2018", "Self Pick-up", "Pending", "         Pending", "40", "-");
         order.add(order1);
-        order1 = new Order("O04", "Mong", "28/11/2018", "Self Pick-up", "Pending", "         Pending", "50");
+        order1 = new Order("O04", "Mong", "12/12/2018", "Self Pick-up", "Pending", "         Pending", "50", "-");
+        order.add(order1);
+        order1 = new Order("O05", "Chong", "12/12/2018", "Delivery", "Pending", "         Pending", "20", "Wangsa Maju");
+        order.add(order1);
+        order1 = new Order("O06", "Chin", "12/12/2018", "Delivery", "Pending", "         Pending", "30", "Gombak");
+        order.add(order1);
+        order1 = new Order("O07", "Khor", "12/12/2018", "Delivery", "Pending", "         Pending", "40", "Genting Klang");
+        order.add(order1);
+        order1 = new Order("O08", "Chua", "12/12/2018", "Delivery", "Pending", "         Pending", "50", "Petaling Jaya");
+        order.add(order1);
+        order1 = new Order("O09", "Jun", "12/12/2018", "Delivery", "Pending", "         Pending", "20", "Petaling Jaya");
+        order.add(order1);
+        order1 = new Order("O10", "Ying", "12/12/2018", "Delivery", "Pending", "         Pending", "30", "Gombak");
+        order.add(order1);
+        order1 = new Order("O11", "Chee", "12/12/2018", "Delivery", "Pending", "         Pending", "40", "Wangsa Maju");
+        order.add(order1);
+        order1 = new Order("O12", "Jie", "12/12/2018", "Delivery", "Pending", "         Pending", "50", "Genting Klang");
         order.add(order1);
 
         cate = new Category("Flower", "F01", "Rose", 10, 10.50, "High");
@@ -1796,9 +1822,9 @@ public class FlowerShop {
         double totalPrice = 0;
         String orderId = "O";
         //String name;
-      
+
         do {
-            
+
             System.out.println("ID\t\t Type\t\t Price(RM)\t\t Quantity\t\tStock ");
             System.out.println("--------------------------------------");
             for (int i = 0; i < cc.size(); i++) {
@@ -1853,8 +1879,7 @@ public class FlowerShop {
             System.out.print(" Id: " + cID);
             System.out.println("\nQuantity: " + quantity);
         } while (!"n".equals(choice));
-        
-        
+
         System.out.println("\nTotal price: " + totalPrice);
 
         System.out.println("\nPick up method: " + pickMethod);
@@ -1867,16 +1892,14 @@ public class FlowerShop {
             int lastEidNumber = Integer.parseInt(order.get(order.size() - 1).getOrderId().substring(1));
             orderId = "O" + String.format("%02d", lastEidNumber + 1);
         }
-    
 
-        order.add(new Order(orderId, "Lucas", "28/11/2018", pickMethod, "   Pending", "    Pending", String.valueOf(totalPrice)));
+//        order.add(new Order(orderId, "Lucas", "28/11/2018", pickMethod, "   Pending", "    Pending", String.valueOf(totalPrice)));
 //
 //        System.out.println("No\t Name\t Date(DD/MM/YYYY)  Pick-up Status    Payment Status\tTimestamp\t Total Price(RM)");
 //        System.out.println("-----------------------------------------------------------------------------------");
 //        for (int i = 0; i < order.size(); i++) {
 //            System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "     \t" + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getPrice());
 //        }
-
     }
 
     public static void orderflower() {
@@ -1960,7 +1983,7 @@ public class FlowerShop {
             orderId = "O" + String.format("%02d", lastEidNumber + 1);
         }
 
-        order.add(new Order(orderId, "Julius", "28/11/2018", pickMethod, "   Pending", "    Pending", String.valueOf(totalPrice)));
+        // order.add(new Order(orderId, "Julius", "28/11/2018", pickMethod, "   Pending", "    Pending", String.valueOf(totalPrice)));
     }
 
     public static void orderfloral() {
@@ -2044,7 +2067,7 @@ public class FlowerShop {
             orderId = "O" + String.format("%02d", lastEidNumber + 1);
         }
 
-        order.add(new Order(orderId, "Julius", "28/11/2018", pickMethod, "   Pending", "    Pending", String.valueOf(totalPrice)));
+        // order.add(new Order(orderId, "Julius", "28/11/2018", pickMethod, "   Pending", "    Pending", String.valueOf(totalPrice)));
     }
 
     public static String checkMethod() {
@@ -2074,12 +2097,9 @@ public class FlowerShop {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
-        //Scanner input = new Scanner(System.in);
-//        List<Order> order = new ArrayList<Order>();
-
         String choice;
         String choose;
-       boolean valid = false;
+        boolean valid = false;
 
         do {
             System.out.println("No\t Name\t Date(DD/MM/YYYY)  Pick-up Status  Price(RM)\tPayment Status\tTimestamp");
@@ -2089,14 +2109,13 @@ public class FlowerShop {
                     System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp());
                 }
             }
-            int p=0;
-            do{
-                 
-                System.out.print("\nWhich customer had pick-up their order ?: ");
-                
+            int p = 0;
+            do {
 
-    //            if (input.hasNextInt()) {
-    //                choice = input.nextInt();
+                System.out.print("\nWhich customer had pick-up their order ?: ");
+
+                //            if (input.hasNextInt()) {
+                //                choice = input.nextInt();
                 choice = s.next();
 
                 for (int i = 0; i < order.size(); i++) {
@@ -2105,12 +2124,12 @@ public class FlowerShop {
                         torder = choice;
                     }
                 }
-                if(valid == false){
+                if (valid == false) {
                     System.out.print("Please enter number that only have at the list: ");
                     //p++;
-                }else{
-                    for(int i=0; i< order.size(); i++){
-                        if(torder.equals(order.get(i).getOrderId())){
+                } else {
+                    for (int i = 0; i < order.size(); i++) {
+                        if (torder.equals(order.get(i).getOrderId())) {
                             order.get(i).setOrderId(order.get(i).getOrderId());
                             order.get(i).setName(order.get(i).getName());
                             order.get(i).setDate(order.get(i).getDate());
@@ -2120,11 +2139,9 @@ public class FlowerShop {
                             break;
                         }
                     }
-                    
-                }
-            }while(valid==false);
 
-            
+                }
+            } while (valid == false);
 
             System.out.println("No\t Name\t Date(DD/MM/YYYY)  Pick-up Status  Price(RM)\tPayment Status\tTimestamp");
             System.out.println("-------------------------------------------------------------------------------------------");
@@ -2144,13 +2161,12 @@ public class FlowerShop {
         } while (!choose.equals("n"));
 
     }
-    
-    public static void displayOrder(){
+
+    public static void displayOrder() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
-        
-        
+
         System.out.println("No\t Name\t Date(DD/MM/YYYY)  Pick-up Status  Price(RM)\tPayment Status\tTimestamp");
         System.out.println("-------------------------------------------------------------------------------------------");
         for (int i = 0; i < order.size(); i++) {
@@ -2159,7 +2175,140 @@ public class FlowerShop {
             }
         }
     }
-    
-    
+
+    public static void manageConsumerPayment() {
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        String choice;
+        String choose;
+        boolean valid = false;
+
+        do {
+            System.out.println("No\t Name\t Date(DD/MM/YYYY)  Pick-up Status  Price(RM)\tPayment Status\t\tTimestamp\tAddress");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+            for (int i = 0; i < order.size(); i++) {
+                if (order.get(i).getPickUpStatus().equals("Delivery") && order.get(i).getDate().equals(formatter.format(date)) && order.get(i).getAddress().equals("Gombak")) {
+                    System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getAddress());
+                }
+            }
+
+            for (int i = 0; i < order.size(); i++) {
+                if (order.get(i).getPickUpStatus().equals("Delivery") && order.get(i).getDate().equals(formatter.format(date)) && order.get(i).getAddress().equals("Genting Klang")) {
+                    System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getAddress());
+                }
+            }
+
+            for (int i = 0; i < order.size(); i++) {
+                if (order.get(i).getPickUpStatus().equals("Delivery") && order.get(i).getDate().equals(formatter.format(date)) && order.get(i).getAddress().equals("Wangsa Maju")) {
+                    System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getAddress());
+                }
+            }
+
+            for (int i = 0; i < order.size(); i++) {
+                if (order.get(i).getPickUpStatus().equals("Delivery") && order.get(i).getDate().equals(formatter.format(date)) && order.get(i).getAddress().equals("Petaling Jaya")) {
+                    System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getAddress());
+                }
+            }
+            int p = 0;
+            do {
+
+                System.out.print("\nWhich customer had paid their order ?: ");
+                choice = s.next();
+
+                for (int i = 0; i < order.size(); i++) {
+                    if (choice.equals(order.get(i).getOrderId())) {
+                        valid = true;
+                        torder = choice;
+                    }
+                }
+                if (valid == false) {
+                    System.out.print("Please enter number that only have at the list: ");
+                    //p++;
+                } else {
+                    for (int i = 0; i < order.size(); i++) {
+                        if (torder.equals(order.get(i).getOrderId())) {
+                            order.get(i).setOrderId(order.get(i).getOrderId());
+                            order.get(i).setName(order.get(i).getName());
+                            order.get(i).setDate(order.get(i).getDate());
+                            order.get(i).setPickUpStatus(order.get(i).getPickUpStatus());
+                            order.get(i).setPaymentStatus("Complete");
+                            order.get(i).setTimestamp(sdf.format(timestamp));
+                            break;
+                        }
+                    }
+
+                }
+            } while (valid == false);
+
+            System.out.println("No\t Name\t Date(DD/MM/YYYY)  Pick-up Status  Price(RM)\tPayment Status\t\tTimestamp\tAddress");
+            System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+            for (int i = 0; i < order.size(); i++) {
+                if (order.get(i).getPickUpStatus().equals("Delivery") && order.get(i).getDate().equals(formatter.format(date)) && order.get(i).getAddress().equals("Gombak")) {
+                    System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getAddress());
+                }
+            }
+
+            for (int i = 0; i < order.size(); i++) {
+                if (order.get(i).getPickUpStatus().equals("Delivery") && order.get(i).getDate().equals(formatter.format(date)) && order.get(i).getAddress().equals("Genting Klang")) {
+                    System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getAddress());
+                }
+            }
+
+            for (int i = 0; i < order.size(); i++) {
+                if (order.get(i).getPickUpStatus().equals("Delivery") && order.get(i).getDate().equals(formatter.format(date)) && order.get(i).getAddress().equals("Wangsa Maju")) {
+                    System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getAddress());
+                }
+            }
+
+            for (int i = 0; i < order.size(); i++) {
+                if (order.get(i).getPickUpStatus().equals("Delivery") && order.get(i).getDate().equals(formatter.format(date)) && order.get(i).getAddress().equals("Petaling Jaya")) {
+                    System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getAddress());
+                }
+            }
+
+            System.out.print("\nAre you want continue to modify the status ?(y/n): ");
+            choose = s.next();
+
+            while (!choose.equals("y") && !choose.equals("n")) {
+                System.out.print("\nPlease selct y or n only: ");
+                choose = s.next();
+            }
+
+        } while (!choose.equals("n"));
+    }
+
+    public static void displayDeliveryRoute() {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+
+        System.out.println("No\t Name\t Date(DD/MM/YYYY)  Pick-up Status  Price(RM)\tPayment Status\t\tTimestamp\tAddress");
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+        for (int i = 0; i < order.size(); i++) {
+            if (order.get(i).getPickUpStatus().equals("Delivery") && order.get(i).getDate().equals(formatter.format(date)) && order.get(i).getAddress().equals("Gombak")) {
+                System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getAddress());
+            }
+        }
+
+        for (int i = 0; i < order.size(); i++) {
+            if (order.get(i).getPickUpStatus().equals("Delivery") && order.get(i).getDate().equals(formatter.format(date)) && order.get(i).getAddress().equals("Genting Klang")) {
+                System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getAddress());
+            }
+        }
+
+        for (int i = 0; i < order.size(); i++) {
+            if (order.get(i).getPickUpStatus().equals("Delivery") && order.get(i).getDate().equals(formatter.format(date)) && order.get(i).getAddress().equals("Wangsa Maju")) {
+                System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getAddress());
+            }
+        }
+
+        for (int i = 0; i < order.size(); i++) {
+            if (order.get(i).getPickUpStatus().equals("Delivery") && order.get(i).getDate().equals(formatter.format(date)) && order.get(i).getAddress().equals("Petaling Jaya")) {
+                System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getAddress());
+            }
+        }
+    }
 
 }

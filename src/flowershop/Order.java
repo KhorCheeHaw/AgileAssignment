@@ -17,9 +17,10 @@ public class Order {
     private String paymentStatus;
     private String timestamp;
     private String price;
+    private String address;
 
     
-    public Order(String orderId, String name, String date, String pickUpStatus, String paymentStatus, String timestamp, String price) {
+    public Order(String orderId, String name, String date, String pickUpStatus, String paymentStatus, String timestamp, String price,String address) {
         this.orderId = orderId;
         this.name = name;
         this.date = date;
@@ -27,6 +28,7 @@ public class Order {
         this.paymentStatus = paymentStatus;
         this.timestamp = timestamp;
         this.price = price;
+        this.address = address;
     }
 
     public String getOrderId() {
@@ -84,5 +86,12 @@ public class Order {
     public void setPrice(String price) {
         this.price = price;
     }
-    
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }
