@@ -7,31 +7,35 @@ package flowershop;
 
 /**
  *
- * @author User
+ * @author rhfoo
  */
 public class Order {
-     private int orderId;
+    private String orderId;
     private String name;
     private String date;
     private String pickUpStatus;
     private String paymentStatus;
     private String timestamp;
+    private String price;
+    private String address;
 
     
-    public Order(int orderId, String name, String date, String pickUpStatus, String paymentStatus, String timestamp) {
+    public Order(String orderId, String name, String date, String pickUpStatus, String paymentStatus, String timestamp, String price,String address) {
         this.orderId = orderId;
         this.name = name;
         this.date = date;
         this.pickUpStatus = pickUpStatus;
         this.paymentStatus = paymentStatus;
         this.timestamp = timestamp;
+        this.price = price;
+        this.address = address;
     }
 
-    public int getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -74,6 +78,20 @@ public class Order {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
-    
-    
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }

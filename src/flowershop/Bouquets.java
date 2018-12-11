@@ -7,7 +7,7 @@ package flowershop;
 
 /**
  *
- * @author User
+ * @author user
  */
 public class Bouquets {
      private String bouquetId;

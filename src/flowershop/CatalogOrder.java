@@ -7,7 +7,7 @@ package flowershop;
 
 /**
  *
- * @author
+ * @author User
  */
 import java.util.ArrayList;
 import java.util.List;
