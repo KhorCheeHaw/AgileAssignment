@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  *
- * @author Lucus
+ * @Lucus
  */
 public class FlowerShop {
 
