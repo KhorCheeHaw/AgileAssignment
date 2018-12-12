@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package flowershop;
 
 import java.util.Scanner;
@@ -26,6 +25,9 @@ public class FlowerShop {
     static List<FloralManagement> floral = new ArrayList<FloralManagement>();
     static List<Order> order = new ArrayList<Order>();
     static List<Category> cc = new ArrayList<>();
+    static List<Invoice> inv = new ArrayList<>();
+    static List<Promotion> pp = new ArrayList<>();
+    
     static String CustId;
     static String tname;
     static String tlimit;
@@ -99,7 +101,8 @@ public class FlowerShop {
                     System.out.println();
                     break;
                 case 4:
-
+                    invoice();
+                    System.out.println();
                     break;
                 case 5:
 
@@ -412,6 +415,7 @@ public class FlowerShop {
                     System.out.println();
                     break;
                 case 2:
+                    classCust();
                     System.out.println();
                     break;
                 case 3:
@@ -434,6 +438,7 @@ public class FlowerShop {
         FloralManagement floral1;
         Order order1;
         Category cate;
+        Invoice invo;
 
         customer1 = new CCustomer("C01", "Lucas", "0161223444", "Cooperate", "123456", "0");
         cust.add(customer1);
@@ -494,6 +499,20 @@ public class FlowerShop {
         cc.add(cate);
         cate = new Category("FloralArrangement", "A01", "Oval", 3, 10.50, "Low");
         cc.add(cate);
+
+        invo = new Invoice("O01", "Lucas", "Flower", "5", "30");
+        inv.add(invo);
+        invo = new Invoice("O02", "Kai", "Bouquet", "7", "25");
+        inv.add(invo);
+        invo = new Invoice("O03", "Haw", "Flower", "8", "60");
+        inv.add(invo);
+        invo = new Invoice("O04", "Lucas", "Floral", "3", "56");
+        inv.add(invo);
+        
+        pp.add(new Promotion("M01","Mix","Rose + Oval",10.50));
+        pp.add(new Promotion("D01","DoubleCombo","Rose + Lily",11.50));
+        pp.add(new Promotion("D02","DoubleCombo","Rose + Sun",12.50));
+        pp.add(new Promotion("M02","Mix","Rose + Posy",13.50));
     }
 
     public static int manageSelectionError() {
@@ -683,7 +702,9 @@ public class FlowerShop {
         System.out.println("1. View Product");
         System.out.println("2. Add Product");
         System.out.println("3. Edit Product");
-        System.out.println("4. Go to previous page");
+        System.out.println("4. Promotion");
+        
+        System.out.println("5. Go to previous page");
         c1 = manageSelectionError();
         flush();
 
@@ -698,6 +719,9 @@ public class FlowerShop {
                 maintain();
                 break;
             case 4:
+                promotion();
+                break;
+            case 5:
                 StaffMenu();
                 break;
             default:
@@ -1791,7 +1815,7 @@ public class FlowerShop {
 
     }
 
-      public static void startOrder() {
+    public static void startOrder() {
 
         Scanner sc = new Scanner(System.in);
         String choice;
@@ -1879,17 +1903,16 @@ public class FlowerShop {
             }
             int quantity = sc.nextInt();
 
-           
             for (int i = 0; i < cc.size(); i++) {
                 if ((cID).equals(cc.get(i).getcID())) {
 
                     int total = (cc.get(i).getcQuantity()) - quantity;
-                    
+
                     if (quantity > cc.get(i).getcQuantity()) {
-                            System.out.println("Sorry, stock is not enough.");
-                            System.out.print("Please enter again:");
-                            quantity = sc.nextInt();
-                        
+                        System.out.println("Sorry, stock is not enough.");
+                        System.out.print("Please enter again:");
+                        quantity = sc.nextInt();
+
                         while (quantity > cc.get(i).getcQuantity()) {
                             System.out.println("Sorry, stock is not enough.");
                             System.out.print("Please enter again: ");
@@ -1931,7 +1954,6 @@ public class FlowerShop {
                     }
                 }
             }
-
 
             System.out.print("Please enter pick up method      : ");
             System.out.print("\n(1 = self pick-up / 2 = delivery) ");
@@ -1985,22 +2007,22 @@ public class FlowerShop {
             System.out.println("\nPick up address: " + address);
         }
 
-          if (order.isEmpty()) {
+        if (order.isEmpty()) {
             orderId += String.format("%02d", order.size() + 1);
         } else {
             int lastEidNumber = Integer.parseInt(order.get(order.size() - 1).getOrderId().substring(1));
             orderId = "O" + String.format("%02d", lastEidNumber + 1);
         }
 
-        order.add(new Order(orderId, "Lucas", date, methodType, "   Pending", "    Pending", String.valueOf(price),address));
+        order.add(new Order(orderId, "Lucas", date, methodType, "   Pending", "    Pending", String.valueOf(price), address));
 
         System.out.println("\nThank you, please come again.");
 
         CustMenu();
-       
+
     }
 
-     public static void orderflower() {
+    public static void orderflower() {
 
         // List<Category> cc = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
@@ -2037,17 +2059,16 @@ public class FlowerShop {
             }
             int quantity = sc.nextInt();
 
-           
             for (int i = 0; i < cc.size(); i++) {
                 if ((cID).equals(cc.get(i).getcID())) {
 
                     int total = (cc.get(i).getcQuantity()) - quantity;
-                    
+
                     if (quantity > cc.get(i).getcQuantity()) {
-                            System.out.println("Sorry, stock is not enough.");
-                            System.out.print("Please enter again:");
-                            quantity = sc.nextInt();
-                        
+                        System.out.println("Sorry, stock is not enough.");
+                        System.out.print("Please enter again:");
+                        quantity = sc.nextInt();
+
                         while (quantity > cc.get(i).getcQuantity()) {
                             System.out.println("Sorry, stock is not enough.");
                             System.out.print("Please enter again: ");
@@ -2089,7 +2110,6 @@ public class FlowerShop {
                     }
                 }
             }
-
 
             System.out.print("Please enter pick up method      : ");
             System.out.print("\n(1 = self pick-up / 2 = delivery) ");
@@ -2143,22 +2163,22 @@ public class FlowerShop {
             System.out.println("\nPick up address: " + address);
         }
 
-          if (order.isEmpty()) {
+        if (order.isEmpty()) {
             orderId += String.format("%02d", order.size() + 1);
         } else {
             int lastEidNumber = Integer.parseInt(order.get(order.size() - 1).getOrderId().substring(1));
             orderId = "O" + String.format("%02d", lastEidNumber + 1);
         }
 
-        order.add(new Order(orderId, "Lucas", date, methodType, "   Pending", "    Pending", String.valueOf(price),address));
+        order.add(new Order(orderId, "Lucas", date, methodType, "   Pending", "    Pending", String.valueOf(price), address));
 
         System.out.println("\nThank you, please come again.");
 
         CustMenu();
-        
+
     }
 
-     public static void orderfloral() {
+    public static void orderfloral() {
 
         // List<Category> cc = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
@@ -2176,7 +2196,7 @@ public class FlowerShop {
         //String name;
 
         do {
-             System.out.println("ID\t  Type\t\t Price(RM)\t Quantity\tStock ");
+            System.out.println("ID\t  Type\t\t Price(RM)\t Quantity\tStock ");
             System.out.println("----------------------------------------------------------------");
             for (int i = 0; i < cc.size(); i++) {
                 if (cc.get(i).getcQuantity() > 0 && cc.get(i).getCategory().equals("FloralArrangement")) {
@@ -2195,17 +2215,16 @@ public class FlowerShop {
             }
             int quantity = sc.nextInt();
 
-           
             for (int i = 0; i < cc.size(); i++) {
                 if ((cID).equals(cc.get(i).getcID())) {
 
                     int total = (cc.get(i).getcQuantity()) - quantity;
-                    
+
                     if (quantity > cc.get(i).getcQuantity()) {
-                            System.out.println("Sorry, stock is not enough.");
-                            System.out.print("Please enter again:");
-                            quantity = sc.nextInt();
-                        
+                        System.out.println("Sorry, stock is not enough.");
+                        System.out.print("Please enter again:");
+                        quantity = sc.nextInt();
+
                         while (quantity > cc.get(i).getcQuantity()) {
                             System.out.println("Sorry, stock is not enough.");
                             System.out.print("Please enter again: ");
@@ -2247,7 +2266,6 @@ public class FlowerShop {
                     }
                 }
             }
-
 
             System.out.print("Please enter pick up method      : ");
             System.out.print("\n(1 = self pick-up / 2 = delivery) ");
@@ -2301,21 +2319,20 @@ public class FlowerShop {
             System.out.println("\nPick up address: " + address);
         }
 
-          if (order.isEmpty()) {
+        if (order.isEmpty()) {
             orderId += String.format("%02d", order.size() + 1);
         } else {
             int lastEidNumber = Integer.parseInt(order.get(order.size() - 1).getOrderId().substring(1));
             orderId = "O" + String.format("%02d", lastEidNumber + 1);
         }
 
-        order.add(new Order(orderId, "Lucas", date, methodType, "   Pending", "    Pending", String.valueOf(price),address));
+        order.add(new Order(orderId, "Lucas", date, methodType, "   Pending", "    Pending", String.valueOf(price), address));
 
         System.out.println("\nThank you, please come again.");
 
         CustMenu();
-      
-    }
 
+    }
 
     public static void recordTimestamp() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -2533,6 +2550,519 @@ public class FlowerShop {
                 System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "\t      " + order.get(i).getPrice() + "  \t  " + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getAddress());
             }
         }
+    }
+
+    public static void classCust() {
+        int p = 0;
+        do {
+            boolean valid = false;
+            String name;
+            String ctype;
+            System.out.println("Here is the customer type");
+            System.out.println("Customer ID \t Customer Name \t Customer Type");
+
+            for (int i = 0; i < cust.size(); i++) {
+                System.out.println(cust.get(i).getCustId() + "\t\t" + cust.get(i).getName() + "\t" + cust.get(i).getCustomerType());
+            }
+
+            System.out.println("Please enter the name that u want to classify");
+            name = s.nextLine();
+            for (int i = 0; i < cust.size(); i++) {
+                if (name.equals(cust.get(i).getName())) {
+                    valid = true;
+                    tname = name;
+                }
+            }
+            if (valid == true) {
+                for (int i = 0; i < cust.size(); i++) {
+                    if (tname.equals(cust.get(i).getName())) {
+                        System.out.println("Enter the new customer type for " + tname);
+                        ctype = CustomerType();
+
+                        cust.get(i).setCustomerType(ctype);
+                        System.out.println("You had successfully Edited the customer type for this customer");
+                        p = 0;
+                    }
+                }
+            } else {
+                System.out.println("Invalid Input!!!");
+                p++;
+            }
+
+        } while (p != 0);
+    }
+
+    public static void invoice() {
+
+        String name = null;
+        int price = 0;
+        for (int i = 0; i < cust.size(); i++) {
+            if (CustId.equals(cust.get(i).getCustId())) {
+                name = cust.get(i).getName();
+            }
+        }
+        System.out.println("Here is your invoice");
+        System.out.println("Original invoice information");
+        System.out.println("----------------------------------------------------------------");
+        System.out.println("Order ID\t Item Name\t Quantity\t Price");
+        for (int i = 0; i < inv.size(); i++) {
+            if (name.equals(inv.get(i).getCname())) {
+                System.out.println(inv.get(i).getOrderId() + "\t\t  " + inv.get(i).getItem() + "\t  " + inv.get(i).getQtt() + "\t\t  " + inv.get(i).getPric());
+
+                price += Integer.parseInt(inv.get(i).getPric());
+            }
+        }
+        System.out.printf("Total Price: RM %d", price);
+    }
+
+    public static void VP() {
+        System.out.println("\n-------------------");
+        System.out.println("--- Mix & Match ---");
+        System.out.println("------------------------------------------");
+        System.out.println("ID\t\tType\t\t\tPrice(RM)");
+        System.out.println("------------------------------------------");
+        for (int i = 0; i < pp.size(); i++) {
+            if (pp.get(i).getpPackage().equals("Mix")) {
+                System.out.println(pp.get(i).getpID() + "\t\t" + pp.get(i).getpType() + "\t\t" + pp.get(i).getpPrice());
+            }
+        }
+
+        System.out.println("\n--------------------");
+        System.out.println("--- Double Combo ---");
+        System.out.println("------------------------------------------");
+        System.out.println("ID\t\tType\t\t\tPrice(RM)");
+        System.out.println("------------------------------------------");
+        for (int i = 0; i < pp.size(); i++) {
+            if (pp.get(i).getpPackage().equals("DoubleCombo")) {
+                System.out.println(pp.get(i).getpID() + "\t\t" + pp.get(i).getpType() + "\t\t" + pp.get(i).getpPrice());
+            }
+        }
+
+        System.out.println("Enter [1] to back to Menu.");
+        int c1 = s.nextInt();
+        if (c1 == 1) {
+            promotion();
+        } else {
+            VP();
+        }
+
+    }
+
+    public static void AP() {
+
+        int c1;
+        int c2;
+        int d1 = 0;
+
+        String mId;
+        String mType = null;
+        String mType2 = null;
+        Double mPrice;
+
+        do {
+
+            System.out.println("---------------------");
+            System.out.println("---   Promotion   ---");
+            System.out.println("---------------------");
+            System.out.println("1. Mix & Match");
+            System.out.println("2. Double Combo");
+            System.out.println("3. Back");
+            System.out.flush();
+            c1 = s.nextInt();
+
+            if (c1 == 1 || c1 == 2 || c1 == 3) {
+                switch (c1) {
+                    case 1:
+                        System.out.print("Enter Mix & Match ID: ");
+                        s.nextLine();
+                        mId = s.nextLine();
+
+                        System.out.print("Choose Mix: \n");
+                        System.out.print("1. Fresh Flower \n");
+                        System.out.print("2. Bouquet \n");
+                        System.out.print("2. Floral Arrangement \n");
+                        c1 = s.nextInt();
+
+                        if (c1 == 1) {
+                            System.out.println("\n-------------------");
+                            System.out.println("--- Flower Type ---");
+                            System.out.println("-------------------");
+
+                            for (int i = 0; i < cc.size(); i++) {
+                                if (cc.get(i).getCategory().equals("Flower")) {
+                                    System.out.println(cc.get(i).getcType());
+                                    System.out.print("\n");
+                                    System.out.flush();
+                                }
+                            }
+                            System.out.print("Enter Flower Type: ");
+                            s.nextLine();
+                            mType = s.nextLine();
+                        }
+                        if (c1 == 2) {
+                            for (int i = 0; i < cc.size(); i++) {
+                                System.out.println("\n--------------------");
+                                System.out.println("--- Bouquet Type ---");
+                                System.out.println("--------------------");
+                                if (cc.get(i).getCategory().equals("Bouquet")) {
+                                    System.out.println(cc.get(i).getcType());
+                                    System.out.print("\n");
+                                    System.out.flush();
+                                }
+                            }
+                            System.out.print("Enter Bouquet Type: ");
+                            s.nextLine();
+                            mType = s.nextLine();
+
+                        }
+                        if (c1 == 3) {
+                            for (int i = 0; i < cc.size(); i++) {
+                                System.out.println("\n--------------------------");
+                                System.out.println("--- FloralArrangement Type ---");
+                                System.out.println("------------------------------");
+
+                                if (cc.get(i).getCategory().equals("FloralArrangement")) {
+                                    System.out.println(cc.get(i).getcType());
+                                    System.out.print("\n");
+                                    System.out.flush();
+                                }
+                            }
+                            System.out.print("Enter FloralArrangement Type: ");
+                            s.nextLine();
+                            mType = s.nextLine();
+
+                        }
+
+                        System.out.print("Choose Match: \n");
+                        System.out.print("1. Fresh Flower \n");
+                        System.out.print("2. Bouquet \n");
+                        System.out.print("2. Floral Arrangement \n");
+                        System.out.flush();
+                        c2 = s.nextInt();
+
+                        if (c2 == 1) {
+                            for (int i = 0; i < cc.size(); i++) {
+                                System.out.println("\n-------------------");
+                                System.out.println("--- Flower Type ---");
+                                System.out.println("-------------------");
+
+                                if (cc.get(i).getCategory().equals("Flower")) {
+                                    System.out.println(cc.get(i).getcType());
+
+                                    System.out.flush();
+                                }
+                            }
+                            System.out.print("Enter Flower Type: ");
+                            s.nextLine();
+                            mType2 = s.nextLine();
+                        }
+
+                        if (c2 == 2) {
+                            for (int i = 0; i < cc.size(); i++) {
+                                System.out.println("\n--------------------");
+                                System.out.println("--- Bouquet Type ---");
+                                System.out.println("--------------------");
+
+                                if (cc.get(i).getCategory().equals("Bouquet")) {
+                                    System.out.println(cc.get(i).getcType());
+
+                                    System.out.flush();
+                                }
+                            }
+                            System.out.print("Enter Bouquet Type: ");
+                            s.nextLine();
+                            mType2 = s.nextLine();
+
+                        }
+
+                        if (c2 == 3) {
+                            for (int i = 0; i < cc.size(); i++) {
+                                if (cc.get(i).getCategory().equals("FloralArrangement")) {
+                                    System.out.println(cc.get(i).getcType());
+
+                                    System.out.flush();
+                                }
+                            }
+                            System.out.print("Enter FloralArrangement Type: ");
+                            s.nextLine();
+                            mType2 = s.nextLine();
+
+                        }
+
+                        System.out.print("Enter Mix & Match Price (Rm): ");
+                        mPrice = s.nextDouble();
+
+                        pp.add(new Promotion(mId, "Mix", mType + " + " + mType2, mPrice));
+
+                        System.out.println("Mix & Match");
+                        System.out.println("------------------------------------------");
+                        System.out.println("ID\t\tType\t\t\tPrice(RM)");
+                        System.out.println("------------------------------------------");
+                        for (int i = 0; i < pp.size(); i++) {
+                            if (pp.get(i).getpPackage().equals("Mix")) {
+                                System.out.println(pp.get(i).getpID() + "\t\t" + pp.get(i).getpType() + "\t\t" + pp.get(i).getpPrice());
+                            }
+                        }
+                        CatelogMaintainance();
+                        break;
+
+                    case 2:
+                        System.out.print("Enter Double Combo ID: ");
+                        s.nextLine();
+                        mId = s.nextLine();
+
+                        System.out.print("Choose combo: \n");
+                        System.out.print("1. Fresh Flower \n");
+                        System.out.print("2. Bouquet \n");
+                        System.out.print("2. Floral Arrangement \n");
+                        c1 = s.nextInt();
+
+                        if (c1 == 1) {
+                            for (int i = 0; i < cc.size(); i++) {
+                                if (cc.get(i).getCategory().equals("Flower")) {
+                                    System.out.println(cc.get(i).getcType());
+                                    System.out.print("\n");
+                                    System.out.flush();
+                                }
+                            }
+                            System.out.print("Enter 1st Flower Type: ");
+                            s.nextLine();
+                            mType = s.nextLine();
+
+                            System.out.print("Enter 2nd Flower Type: ");
+
+                            mType2 = s.nextLine();
+                        }
+                        if (c1 == 2) {
+                            for (int i = 0; i < cc.size(); i++) {
+                                if (cc.get(i).getCategory().equals("Bouquet")) {
+                                    System.out.println(cc.get(i).getcType());
+                                    System.out.print("\n");
+                                    System.out.flush();
+                                }
+                            }
+                            System.out.print("Enter 1st Bouquet Type: ");
+                            s.nextLine();
+                            mType = s.nextLine();
+
+                            System.out.print("Enter 2nd Bouquet Type: ");
+
+                            mType2 = s.nextLine();
+
+                        }
+                        if (c1 == 3) {
+                            for (int i = 0; i < cc.size(); i++) {
+                                System.out.println("\n--------------------------");
+                                System.out.println("--- FloralArrangement Type ---");
+                                System.out.println("------------------------------");
+
+                                if (cc.get(i).getCategory().equals("FloralArrangement")) {
+                                    System.out.println(cc.get(i).getcType());
+                                    System.out.print("\n");
+                                    System.out.flush();
+                                }
+                            }
+                            System.out.print("Enter 1st FloralArrangement Type: ");
+                            s.nextLine();
+                            mType = s.nextLine();
+
+                            System.out.print("Enter 2nd FloralArrangement Type: ");
+
+                            mType2 = s.nextLine();
+
+                        }
+
+                        System.out.print("Enter Double Combo Price (Rm): ");
+                        mPrice = s.nextDouble();
+
+                        pp.add(new Promotion(mId, "DoubleCombo", mType + " + " + mType2, mPrice));
+
+                        System.out.println("Double Combo");
+                        System.out.println("------------------------------------------");
+                        System.out.println("ID\t\tType\t\t\tPrice(RM)");
+                        System.out.println("------------------------------------------");
+                        for (int i = 0; i < pp.size(); i++) {
+                            if (pp.get(i).getpPackage().equals("DoubleCombo")) {
+                                System.out.println(pp.get(i).getpID() + "\t\t" + pp.get(i).getpType() + "\t\t" + pp.get(i).getpPrice());
+                            }
+                        }
+                        CatelogMaintainance();
+                        break;
+
+                    case 3:
+
+                        promotion();
+                        break;
+                    default:
+                        break;
+
+                }
+            } else {
+                System.out.println("Error: Invalid Menu Selection.");
+                freshflower();
+
+            }
+        } while (d1 == 1);
+    }
+
+    public static void EP() {
+        int c1;
+        String mID;
+        System.out.println("------------------------");
+        System.out.println("--- Delete Promotion ---");
+        System.out.println("------------------------");
+        System.out.println("1. Delete Mix & Match");
+        System.out.println("2. Delete Double Combo");
+        System.out.println("3. Back");
+
+        System.out.flush();
+        c1 = s.nextInt();
+
+        if (c1 == 1 || c1 == 2 || c1 == 3) {
+            switch (c1) {
+                case 1:
+                    System.out.println("------------------------");
+                    System.out.println("---    Mix & Match   ---");
+                    System.out.println("------------------------");
+                    System.out.println("ID" + "\t\t" + "Type");
+                    System.out.println("---------------------------------------");
+                    for (int i = 0; i < pp.size(); i++) {
+                        if (pp.get(i).getpPackage().equals("Mix")) {
+                            System.out.println(pp.get(i).getpID() + "\t\t" + pp.get(i).getpType());
+                            System.out.print("\n");
+                            System.out.flush();
+                        }
+                    }
+
+                    System.out.println("Type in Mix & Match ID:");
+                    s.nextLine();
+                    mID = s.nextLine();
+
+                    for (int i = 0; i < pp.size(); i++) {
+                        if (mID.equals(pp.get(i).getpID())) {
+                            System.out.print("Are you confirm to DELETE " + "(" + pp.get(i).getpType() + ")" + "?[Y/N]");
+                            String Answer = s.nextLine();
+                            if (Answer.equals("yes") || Answer.equals("y") || Answer.equals("Y")) {
+                                pp.remove(i).getpID();
+
+                            } else {
+                                System.out.println("!Delete NOT successful!");
+                                EP();
+                            }
+                        }
+                    }
+
+                    System.out.println("------------------------------------------");
+                    System.out.println("ID\t\tType\t\t\tPrice(RM)");
+                    System.out.println("------------------------------------------");
+                    for (int i = 0; i < pp.size(); i++) {
+                        if (pp.get(i).getpPackage().equals("Mix")) {
+                            System.out.println(pp.get(i).getpID() + "\t\t" + pp.get(i).getpType() + "\t\t" + pp.get(i).getpPrice());
+                        }
+                    }
+                    CatelogMaintainance();
+                    break;
+
+                case 2:
+                    System.out.println("------------------------");
+                    System.out.println("--- Delete Promotion ---");
+                    System.out.println("------------------------");
+
+                    for (int i = 0; i < pp.size(); i++) {
+                        if (pp.get(i).getpPackage().equals("DoubleCombo")) {
+                            System.out.println(pp.get(i).getpID() + "\t\t" + pp.get(i).getpType());
+                            System.out.print("\n");
+                            System.out.flush();
+                        }
+                    }
+
+                    System.out.println("Type in Double Combo ID:");
+                    s.nextLine();
+                    mID = s.nextLine();
+
+                    for (int i = 0; i < pp.size(); i++) {
+                        if (mID.equals(pp.get(i).getpID())) {
+                            System.out.print("Are you confirm to DELETE " + "(" + mID + ")" + "?[Y/N]");
+                            String Answer = s.nextLine();
+                            if (Answer.equals("yes") || Answer.equals("y") || Answer.equals("Y")) {
+                                pp.remove(i).getpID();
+
+                            } else {
+                                System.out.println("!Delete NOT successful!");
+                                FM();
+                            }
+                        }
+                    }
+
+                    System.out.println("------------------------------------------");
+                    System.out.println("ID\t\tType\t\t\tPrice(RM)");
+                    System.out.println("------------------------------------------");
+                    for (int i = 0; i < pp.size(); i++) {
+                        if (pp.get(i).getpPackage().equals("DoubleCombo")) {
+                            System.out.println(pp.get(i).getpID() + "\t\t" + pp.get(i).getpType() + "\t\t" + pp.get(i).getpPrice());
+                        }
+                    }
+                    CatelogMaintainance();
+                    break;
+
+                case 3:
+                    promotion();
+                    break;
+                default:
+                    break;
+
+            }
+
+        }
+
+    }
+    
+    public static void promotion()
+    {
+        int c1;
+        int d1 = 0;
+        do {
+
+            System.out.println("-------------------");
+            System.out.println("---  Promotion  ---");
+            System.out.println("-------------------");
+            System.out.println("1. View Promotion");
+            System.out.println("2. Add Promotion");
+            System.out.println("3. Edit Promotion");
+            System.out.println("4. Back To Menu");
+            System.out.flush();
+            c1 = s.nextInt();
+            
+            if(c1==1 || c1==2 || c1==3 || c1==4)
+            {
+                 switch (c1) 
+                 {
+                    case 1:
+                        VP();
+                        break;
+                    case 2:
+                        AP();
+                        break;
+                    case 3:
+                        EP();
+                        break;
+                    case 4:
+                        CatelogMaintainance();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {   
+                System.out.println("Error: Invalid Menu Selection."); 
+                CatelogMaintainance();
+               
+            }
+
+        } while (d1 == 1);
+     
+        
     }
 
 }
