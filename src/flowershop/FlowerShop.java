@@ -26,6 +26,7 @@ public class FlowerShop {
     static List<FloralManagement> floral = new ArrayList<FloralManagement>();
     static List<Order> order = new ArrayList<Order>();
     static List<Category> cc = new ArrayList<>();
+    static List<Invoice> inv = new ArrayList<>();
     static String CustId;
     static String tname;
     static String tlimit;
@@ -99,7 +100,8 @@ public class FlowerShop {
                     System.out.println();
                     break;
                 case 4:
-
+                    invoice();
+                    System.out.println();
                     break;
                 case 5:
 
@@ -412,6 +414,7 @@ public class FlowerShop {
                     System.out.println();
                     break;
                 case 2:
+                    classCust();
                     System.out.println();
                     break;
                 case 3:
@@ -434,6 +437,7 @@ public class FlowerShop {
         FloralManagement floral1;
         Order order1;
         Category cate;
+        Invoice invo;
 
         customer1 = new CCustomer("C01", "Lucas", "0161223444", "Cooperate", "123456", "0");
         cust.add(customer1);
@@ -494,6 +498,15 @@ public class FlowerShop {
         cc.add(cate);
         cate = new Category("FloralArrangement", "A01", "Oval", 3, 10.50, "Low");
         cc.add(cate);
+        
+        invo = new Invoice("O01", "Lucas" ,"Flower", "5" , "30");
+        inv.add(invo);
+        invo = new Invoice("O02", "Kai" ,"Bouquet", "7" , "25");
+        inv.add(invo);
+        invo = new Invoice("O03", "Haw" ,"Flower", "8" , "60");
+        inv.add(invo);
+        invo = new Invoice("O04", "Lucas" ,"Floral", "3" , "56");
+        inv.add(invo);
     }
 
     public static int manageSelectionError() {
@@ -2534,5 +2547,70 @@ public class FlowerShop {
             }
         }
     }
+    
+    public static void classCust(){
+        int p = 0;
+        do {
+            boolean valid = false;
+            String name;
+            String ctype;
+                System.out.println("Here is the customer type");
+                System.out.println("Customer ID \t Customer Name \t Customer Type");
+
+                for(int i=0 ; i< cust.size() ; i++){
+                        System.out.println(cust.get(i).getCustId() + "\t\t" + cust.get(i).getName() + "\t" + cust.get(i).getCustomerType());
+                }
+                
+                System.out.println("Please enter the name that u want to classify");
+                name = s.nextLine();
+                for (int i = 0; i < cust.size(); i++) {
+                    if (name.equals(cust.get(i).getName())) {
+                        valid = true;
+                        tname = name;
+                    }
+                }
+                if (valid == true) {
+                    for (int i = 0; i < cust.size(); i++) {
+                        if (tname.equals(cust.get(i).getName())) {
+                            System.out.println("Enter the new customer type for " + tname);
+                            ctype = CustomerType();
+
+                            cust.get(i).setCustomerType(ctype);
+                            System.out.println("You had successfully Edited the customer type for this customer");
+                            p = 0;
+                        }
+                    }
+                } else {
+                System.out.println("Invalid Input!!!");
+                p++;
+            }
+                
+        } while (p != 0);
+    }
+    
+    public static void invoice(){
+        
+        String name = null;
+        int price = 0;
+        for (int i = 0 ; i < cust.size() ; i++){
+            if(CustId.equals(cust.get(i).getCustId())){
+                name = cust.get(i).getName();
+            }
+        }
+        System.out.println("Here is your invoice");
+        System.out.println("Original invoice information" );
+        System.out.println("----------------------------------------------------------------" );
+        System.out.println("Order ID\t Item Name\t Quantity\t Price" );
+        for(int i = 0; i < inv.size() ; i++){
+            if(name.equals(inv.get(i).getCname())){
+                    System.out.println(inv.get(i).getOrderId() + "\t\t  " + inv.get(i).getItem() + "\t  " + inv.get(i).getQtt() + "\t\t  " + inv.get(i).getPric());
+                    
+                    price += Integer.parseInt(inv.get(i).getPric()); 
+                }
+        }
+        System.out.printf("Total Price: RM %d" , price );       
+    }
 
 }
+
+
