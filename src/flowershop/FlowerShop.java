@@ -1791,13 +1791,44 @@ public class FlowerShop {
 
     }
 
-    public static void startOrder() {
+      public static void startOrder() {
+
+        Scanner sc = new Scanner(System.in);
+        String choice;
+
+        for (int i = 0; i < cust.size(); i++) {
+
+            if (CustId.equals(cust.get(i).getCustId()) && "Cooperate".equals(cust.get(i).getCustomerType()) && cust.get(i).getCreditLimit().equals("0")) {
+
+                System.out.print("Sorry, you have exceed your credit limit.\n");
+                System.out.print("Please enter y to go back menu : ");
+                choice = sc.next();
+
+                while (!"y".equals(choice)) {
+                    System.out.print("Please type y :");
+                    choice = sc.next();
+                }
+                if (choice.equals("y")) {
+                    CustMenu();
+                }
+            } else {
+                orderMenu();
+            }
+        }
+
+    }
+
+    public static void orderMenu() {
         Scanner sc = new Scanner(System.in);
         System.out.print("\n1. Fresh Flower\n");
         System.out.print("2. Bouquets\n");
         System.out.print("3. Floral Management\n");
-        System.out.print("Please select : ");
+        System.out.print("Please select 1-3: ");
 
+        while (!sc.hasNextInt()) {
+            System.out.print("Please reenter again (1,2 or 3):");
+            sc.next();
+        }
         int select = sc.nextInt();
 
         if (select == 1) {
@@ -1808,142 +1839,63 @@ public class FlowerShop {
             orderfloral();
         } else {
             System.out.print("Please choose 1,2 or 3.\n");
-            startOrder();
         }
-
     }
 
     public static void orderbouquet() {
 
         // List<Category> cc = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        String select;
         String choice;
-        String pickMethod;
-        double price;
+
+        String methodType = null;
+
+        String date;
+        String address;
+        double price = 0;
         double totalPrice = 0;
+
         String orderId = "O";
         //String name;
 
         do {
-
-            System.out.println("ID\t\t Type\t\t Price(RM)\t\t Quantity\t\tStock ");
-            System.out.println("--------------------------------------");
+            System.out.println("ID\t  Type\t\t Price(RM)\t Quantity\tStock ");
+            System.out.println("----------------------------------------------------------------");
             for (int i = 0; i < cc.size(); i++) {
                 if (cc.get(i).getcQuantity() > 0 && cc.get(i).getCategory().equals("Bouquet")) {
-                    System.out.println(cc.get(i).getcID() + "\t " + cc.get(i).getcType() + "\t\t " + cc.get(i).getcPrice() + "\t   " + cc.get(i).getcQuantity() + "\t   " + cc.get(i).getStock());
+                    System.out.println(cc.get(i).getcID() + "\t  " + cc.get(i).getcType() + "\t\t  " + cc.get(i).getcPrice() + "\t\t  " + cc.get(i).getcQuantity() + "\t\t" + cc.get(i).getStock());
                 }
             }
-
-            Scanner sc = new Scanner(System.in);
-
-            System.out.print("\nPlease enter the id of bouquet: ");
-            while (!sc.hasNext()) {
-                System.out.print("Please reenter again (eg:FA01):");
-                sc.next();
-            }
-            String cID = sc.next();
-
-            System.out.print("\nPlease enter the quantity of flower: ");
-            while (!sc.hasNextInt()) {
-                System.out.print("It is not an integer,please reenter again:");
-                sc.next();
-            }
-            int quantity = sc.nextInt();
-
-            for (int i = 0; i < cc.size(); i++) {
-                if ((cID).equals(cc.get(i).getcID())) {
-
-                    int total = (cc.get(i).getcQuantity()) - quantity;
-                    cc.get(i).setcID(cc.get(i).getcID());
-                    cc.get(i).setcType(cc.get(i).getcType());
-                    cc.get(i).setcQuantity((total));
-                    cc.get(i).setcPrice(cc.get(i).getcPrice());
-                    cc.get(i).setStock(cc.get(i).getStock());
-
-                    price = cc.get(i).getcPrice() * quantity;
-                    totalPrice += price;
-                }
-            }
-
-            pickMethod = checkMethod();
-
-            System.out.print("\nDo you want to continue order?(y = yes, n = no):");
-            choice = sc.next();
-
-            while (!"n".equals(choice) && !"y".equals(choice)) {
-                System.out.print("Please type y or n:");
-                choice = sc.next();
-            }
-
-            System.out.print("\nYou have chosen\n");
-            System.out.print("-----------------\n");
-            System.out.print(" Id: " + cID);
-            System.out.println("\nQuantity: " + quantity);
-        } while (!"n".equals(choice));
-
-        System.out.println("\nTotal price: " + totalPrice);
-
-        System.out.println("\nPick up method: " + pickMethod);
-
-        System.out.println("\nThank you, please come again.");
-
-        if (order.isEmpty()) {
-            orderId += String.format("%02d", order.size() + 1);
-        } else {
-            int lastEidNumber = Integer.parseInt(order.get(order.size() - 1).getOrderId().substring(1));
-            orderId = "O" + String.format("%02d", lastEidNumber + 1);
-        }
-
-//        order.add(new Order(orderId, "Lucas", "28/11/2018", pickMethod, "   Pending", "    Pending", String.valueOf(totalPrice)));
-//
-//        System.out.println("No\t Name\t Date(DD/MM/YYYY)  Pick-up Status    Payment Status\tTimestamp\t Total Price(RM)");
-//        System.out.println("-----------------------------------------------------------------------------------");
-//        for (int i = 0; i < order.size(); i++) {
-//            System.out.println(order.get(i).getOrderId() + "\t " + order.get(i).getName() + "\t   " + order.get(i).getDate() + "\t   " + order.get(i).getPickUpStatus() + "     \t" + order.get(i).getPaymentStatus() + "\t" + order.get(i).getTimestamp() + "\t" + order.get(i).getPrice());
-//        }
-    }
-
-    public static void orderflower() {
-
-        String choice;
-        String pickMethod;
-        double price;
-        double totalPrice = 0;
-        String orderId = "O";
-//
-//        cc.add(new Category("Flower", "F01", "Rose", 10, 10.50, "High"));
-//        cc.add(new Category("Bouquet", "B01", "Posy", 0, 10.50, "Finish"));
-//        cc.add(new Category("FloralArrangement", "FA01", "Oval", 3, 10.50, "Low"));
-
-        do {
-
-            System.out.println("ID\t\t Type\t\t Price(RM)\t\t Quantity\t\tStock ");
-            System.out.println("--------------------------------------");
-            for (int i = 0; i < cc.size(); i++) {
-                if (cc.get(i).getcQuantity() > 0 && cc.get(i).getCategory().equals("Flower")) {
-                    System.out.println(cc.get(i).getcID() + "\t " + cc.get(i).getcType() + "\t\t " + cc.get(i).getcPrice() + "\t   " + cc.get(i).getcQuantity() + "\t   " + cc.get(i).getStock());
-                }
-            }
-
-            Scanner sc = new Scanner(System.in);
 
             System.out.print("\nPlease enter the id: ");
-            while (!sc.hasNext()) {
-                System.out.print("Please reenter again (eg:FA01):");
-                sc.next();
-            }
+
             String cID = sc.next();
 
-            System.out.print("\nPlease enter the quantity of flower: ");
+            System.out.print("\nPlease enter the quantity: ");
             while (!sc.hasNextInt()) {
                 System.out.print("It is not an integer,please reenter again:");
                 sc.next();
             }
             int quantity = sc.nextInt();
 
+           
             for (int i = 0; i < cc.size(); i++) {
                 if ((cID).equals(cc.get(i).getcID())) {
 
                     int total = (cc.get(i).getcQuantity()) - quantity;
+                    
+                    if (quantity > cc.get(i).getcQuantity()) {
+                            System.out.println("Sorry, stock is not enough.");
+                            System.out.print("Please enter again:");
+                            quantity = sc.nextInt();
+                        
+                        while (quantity > cc.get(i).getcQuantity()) {
+                            System.out.println("Sorry, stock is not enough.");
+                            System.out.print("Please enter again: ");
+                            quantity = sc.nextInt();
+                        }
+                    }
                     cc.get(i).setcID(cc.get(i).getcID());
                     cc.get(i).setcType(cc.get(i).getcType());
                     cc.get(i).setcQuantity((total));
@@ -1951,147 +1903,419 @@ public class FlowerShop {
                     cc.get(i).setStock(cc.get(i).getStock());
 
                     price = cc.get(i).getcPrice() * quantity;
-                    totalPrice += price;
+                    // totalPrice += price;
+                }
+            }
+            double credit = 0;
+            for (int i = 0; i < cust.size(); i++) {
+                if (CustId.equals(cust.get(i).getCustId()) && "Cooperate".equals(cust.get(i).getCustomerType())) {
+                    credit = (Double.parseDouble(cust.get(i).getCreditLimit()) - price);
+                    cust.get(i).setCreditLimit(String.valueOf(credit));
+                    credit = Double.parseDouble(cust.get(i).getCreditLimit());
+
+                    if (credit <= 0) {
+                        System.out.print("Sorry, you have exceed your credit limit.");
+
+                        System.out.print("\nPlease enter y to go back menu : ");
+                        select = sc.next();
+
+                        if (select.equals("y")) {
+                            CustMenu();
+                        }
+                        while (!"y".equals(select)) {
+
+                            System.out.print("Please type y:");
+                            select = sc.next();
+                        }
+
+                    }
                 }
             }
 
-            pickMethod = checkMethod();
 
-            System.out.print("\nDo you want to continue order?(y = yes, n = no):");
-            choice = sc.next();
-
-            while (!"n".equals(choice) && !"y".equals(choice)) {
-                System.out.print("Please type y or n:");
-                choice = sc.next();
-            }
-
-            System.out.print("\nYou have chosen\n");
-            System.out.print("-----------------\n");
-            System.out.print(" Id: " + cID);
-            System.out.println("\nQuantity: " + quantity);
-        } while (!"n".equals(choice));
-        System.out.println("\nTotal price: " + totalPrice);
-
-        System.out.println("\nPick up method: " + pickMethod);
-
-        System.out.println("\nThank you, please come again.");
-
-        if (order.isEmpty()) {
-            orderId += String.format("%02d", order.size() + 1);
-        } else {
-            int lastEidNumber = Integer.parseInt(order.get(order.size() - 1).getOrderId().substring(1));
-            orderId = "O" + String.format("%02d", lastEidNumber + 1);
-        }
-
-        // order.add(new Order(orderId, "Julius", "28/11/2018", pickMethod, "   Pending", "    Pending", String.valueOf(totalPrice)));
-    }
-
-    public static void orderfloral() {
-
-        String choice;
-        String pickMethod;
-        double price;
-        double totalPrice = 0;
-        String orderId = "O";
-//
-//        cc.add(new Category("Flower", "F01", "Rose", 10, 10.50, "High"));
-//        cc.add(new Category("Bouquet", "B01", "Posy", 0, 10.50, "Finish"));
-//        cc.add(new Category("FloralArrangement", "FA01", "Oval", 3, 10.50, "Low"));
-
-        do {
-
-            System.out.println("ID\t\t Type\t\t Price(RM)\t\t Quantity\t\tStock ");
-            System.out.println("--------------------------------------");
-            for (int i = 0; i < cc.size(); i++) {
-                if (cc.get(i).getcQuantity() > 0 && cc.get(i).getCategory().equals("FloralArrangement")) {
-                    System.out.println(cc.get(i).getcID() + "\t " + cc.get(i).getcType() + "\t\t " + cc.get(i).getcPrice() + "\t   " + cc.get(i).getcQuantity() + "\t   " + cc.get(i).getStock());
-                }
-            }
-
-            Scanner sc = new Scanner(System.in);
-
-            System.out.print("\nPlease enter the id: ");
-            while (!sc.hasNext()) {
-                System.out.print("Please reenter again (eg:FA01):");
-                sc.next();
-            }
-            String cID = sc.next();
-
-            System.out.print("\nPlease enter the quantity of flower: ");
-            while (!sc.hasNextInt()) {
-                System.out.print("It is not an integer,please reenter again:");
-                sc.next();
-            }
-            int quantity = sc.nextInt();
-
-            for (int i = 0; i < cc.size(); i++) {
-                if ((cID).equals(cc.get(i).getcID())) {
-
-                    int total = (cc.get(i).getcQuantity()) - quantity;
-                    cc.get(i).setcID(cc.get(i).getcID());
-                    cc.get(i).setcType(cc.get(i).getcType());
-                    cc.get(i).setcQuantity((total));
-                    cc.get(i).setcPrice(cc.get(i).getcPrice());
-                    cc.get(i).setStock(cc.get(i).getStock());
-
-                    price = cc.get(i).getcPrice() * quantity;
-                    totalPrice += price;
-                }
-            }
-
-            pickMethod = checkMethod();
-
-            System.out.print("\nDo you want to continue order?(y = yes, n = no):");
-            choice = sc.next();
-
-            while (!"n".equals(choice) && !"y".equals(choice)) {
-                System.out.print("Please type y or n:");
-                choice = sc.next();
-            }
-
-            System.out.print("\nYou have chosen\n");
-            System.out.print("-----------------\n");
-            System.out.print(" Id: " + cID);
-            System.out.println("\nQuantity: " + quantity);
-        } while (!"n".equals(choice));
-        System.out.println("\nTotal price: " + totalPrice);
-
-        System.out.println("\nPick up method: " + pickMethod);
-
-        System.out.println("\nThank you, please come again.");
-
-        if (order.isEmpty()) {
-            orderId += String.format("%02d", order.size() + 1);
-        } else {
-            int lastEidNumber = Integer.parseInt(order.get(order.size() - 1).getOrderId().substring(1));
-            orderId = "O" + String.format("%02d", lastEidNumber + 1);
-        }
-
-        // order.add(new Order(orderId, "Julius", "28/11/2018", pickMethod, "   Pending", "    Pending", String.valueOf(totalPrice)));
-    }
-
-    public static String checkMethod() {
-        boolean valid = false;
-        int method;
-        String methodType = null;
-        do {
             System.out.print("Please enter pick up method      : ");
             System.out.print("\n(1 = self pick-up / 2 = delivery) ");
-            method = s.nextInt();
 
-            if (method != 1 && method != 2) {
-                System.out.println("Invalid input, Please try again");
-                valid = false;
-            } else if (method == 1) {
+            while (!sc.hasNextInt()) {
+                System.out.print("Invalid input, Please try again : ");
+                sc.next();
+
+            }
+            int method = sc.nextInt();
+
+            if (method == 1) {
                 methodType = "Self Pick-up";
-                valid = true;
+
             } else if (method == 2) {
                 methodType = "Delivery";
-                valid = true;
+                System.out.print("\nPlease enter pick-up address: ");
+                sc.nextLine();
+            } else {
+
+                System.out.print("\nInvalid input ");
             }
-        } while (!valid);
-        return methodType;
+
+            address = sc.nextLine();
+
+            System.out.print("\nPlease enter pick-up date (DD/MM/YY): ");
+            date = sc.next();
+
+            System.out.print("\nDo you want to continue order?(y = yes, n = no):");
+
+            choice = sc.next();
+
+            while (!"n".equals(choice) && !"y".equals(choice)) {
+                System.out.print("Please type y or n:");
+                choice = sc.next();
+            }
+
+            System.out.print("\nOrder Summary Details\n");
+            System.out.print("------------------------\n");
+            System.out.print(" Id: " + cID);
+            System.out.println("\nQuantity: " + quantity);
+
+        } while (!"n".equals(choice));
+
+        System.out.println("\nTotal price: " + price);
+
+        System.out.println("\nPick up method: " + methodType);
+
+        System.out.println("\nPick up date: " + date);
+        if (methodType.equals("Delivery")) {
+            System.out.println("\nPick up address: " + address);
+        }
+
+          if (order.isEmpty()) {
+            orderId += String.format("%02d", order.size() + 1);
+        } else {
+            int lastEidNumber = Integer.parseInt(order.get(order.size() - 1).getOrderId().substring(1));
+            orderId = "O" + String.format("%02d", lastEidNumber + 1);
+        }
+
+        order.add(new Order(orderId, "Lucas", date, methodType, "   Pending", "    Pending", String.valueOf(price),address));
+
+        System.out.println("\nThank you, please come again.");
+
+        CustMenu();
+       
     }
+
+     public static void orderflower() {
+
+        // List<Category> cc = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        String select;
+        String choice;
+
+        String methodType = null;
+
+        String date;
+        String address;
+        double price = 0;
+        double totalPrice = 0;
+
+        String orderId = "O";
+        //String name;
+
+        do {
+            System.out.println("ID\t  Type\t\t Price(RM)\t Quantity\tStock ");
+            System.out.println("----------------------------------------------------------------");
+            for (int i = 0; i < cc.size(); i++) {
+                if (cc.get(i).getcQuantity() > 0 && cc.get(i).getCategory().equals("Flower")) {
+                    System.out.println(cc.get(i).getcID() + "\t  " + cc.get(i).getcType() + "\t\t  " + cc.get(i).getcPrice() + "\t\t  " + cc.get(i).getcQuantity() + "\t\t" + cc.get(i).getStock());
+                }
+            }
+
+            System.out.print("\nPlease enter the id: ");
+
+            String cID = sc.next();
+
+            System.out.print("\nPlease enter the quantity: ");
+            while (!sc.hasNextInt()) {
+                System.out.print("It is not an integer,please reenter again:");
+                sc.next();
+            }
+            int quantity = sc.nextInt();
+
+           
+            for (int i = 0; i < cc.size(); i++) {
+                if ((cID).equals(cc.get(i).getcID())) {
+
+                    int total = (cc.get(i).getcQuantity()) - quantity;
+                    
+                    if (quantity > cc.get(i).getcQuantity()) {
+                            System.out.println("Sorry, stock is not enough.");
+                            System.out.print("Please enter again:");
+                            quantity = sc.nextInt();
+                        
+                        while (quantity > cc.get(i).getcQuantity()) {
+                            System.out.println("Sorry, stock is not enough.");
+                            System.out.print("Please enter again: ");
+                            quantity = sc.nextInt();
+                        }
+                    }
+                    cc.get(i).setcID(cc.get(i).getcID());
+                    cc.get(i).setcType(cc.get(i).getcType());
+                    cc.get(i).setcQuantity((total));
+                    cc.get(i).setcPrice(cc.get(i).getcPrice());
+                    cc.get(i).setStock(cc.get(i).getStock());
+
+                    price = cc.get(i).getcPrice() * quantity;
+                    // totalPrice += price;
+                }
+            }
+            double credit = 0;
+            for (int i = 0; i < cust.size(); i++) {
+                if (CustId.equals(cust.get(i).getCustId()) && "Cooperate".equals(cust.get(i).getCustomerType())) {
+                    credit = (Double.parseDouble(cust.get(i).getCreditLimit()) - price);
+                    cust.get(i).setCreditLimit(String.valueOf(credit));
+                    credit = Double.parseDouble(cust.get(i).getCreditLimit());
+
+                    if (credit <= 0) {
+                        System.out.print("Sorry, you have exceed your credit limit.");
+
+                        System.out.print("\nPlease enter y to go back menu : ");
+                        select = sc.next();
+
+                        if (select.equals("y")) {
+                            CustMenu();
+                        }
+                        while (!"y".equals(select)) {
+
+                            System.out.print("Please type y:");
+                            select = sc.next();
+                        }
+
+                    }
+                }
+            }
+
+
+            System.out.print("Please enter pick up method      : ");
+            System.out.print("\n(1 = self pick-up / 2 = delivery) ");
+
+            while (!sc.hasNextInt()) {
+                System.out.print("Invalid input, Please try again : ");
+                sc.next();
+
+            }
+            int method = sc.nextInt();
+
+            if (method == 1) {
+                methodType = "Self Pick-up";
+
+            } else if (method == 2) {
+                methodType = "Delivery";
+                System.out.print("\nPlease enter pick-up address: ");
+                sc.nextLine();
+            } else {
+
+                System.out.print("\nInvalid input ");
+            }
+
+            address = sc.nextLine();
+
+            System.out.print("\nPlease enter pick-up date (DD/MM/YY): ");
+            date = sc.next();
+
+            System.out.print("\nDo you want to continue order?(y = yes, n = no):");
+
+            choice = sc.next();
+
+            while (!"n".equals(choice) && !"y".equals(choice)) {
+                System.out.print("Please type y or n:");
+                choice = sc.next();
+            }
+
+            System.out.print("\nOrder Summary Details\n");
+            System.out.print("------------------------\n");
+            System.out.print(" Id: " + cID);
+            System.out.println("\nQuantity: " + quantity);
+
+        } while (!"n".equals(choice));
+
+        System.out.println("\nTotal price: " + price);
+
+        System.out.println("\nPick up method: " + methodType);
+
+        System.out.println("\nPick up date: " + date);
+        if (methodType.equals("Delivery")) {
+            System.out.println("\nPick up address: " + address);
+        }
+
+          if (order.isEmpty()) {
+            orderId += String.format("%02d", order.size() + 1);
+        } else {
+            int lastEidNumber = Integer.parseInt(order.get(order.size() - 1).getOrderId().substring(1));
+            orderId = "O" + String.format("%02d", lastEidNumber + 1);
+        }
+
+        order.add(new Order(orderId, "Lucas", date, methodType, "   Pending", "    Pending", String.valueOf(price),address));
+
+        System.out.println("\nThank you, please come again.");
+
+        CustMenu();
+        
+    }
+
+     public static void orderfloral() {
+
+        // List<Category> cc = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        String select;
+        String choice;
+
+        String methodType = null;
+
+        String date;
+        String address;
+        double price = 0;
+        double totalPrice = 0;
+
+        String orderId = "O";
+        //String name;
+
+        do {
+             System.out.println("ID\t  Type\t\t Price(RM)\t Quantity\tStock ");
+            System.out.println("----------------------------------------------------------------");
+            for (int i = 0; i < cc.size(); i++) {
+                if (cc.get(i).getcQuantity() > 0 && cc.get(i).getCategory().equals("FloralArrangement")) {
+                    System.out.println(cc.get(i).getcID() + "\t  " + cc.get(i).getcType() + "\t\t  " + cc.get(i).getcPrice() + "\t\t  " + cc.get(i).getcQuantity() + "\t\t" + cc.get(i).getStock());
+                }
+            }
+
+            System.out.print("\nPlease enter the id: ");
+
+            String cID = sc.next();
+
+            System.out.print("\nPlease enter the quantity: ");
+            while (!sc.hasNextInt()) {
+                System.out.print("It is not an integer,please reenter again:");
+                sc.next();
+            }
+            int quantity = sc.nextInt();
+
+           
+            for (int i = 0; i < cc.size(); i++) {
+                if ((cID).equals(cc.get(i).getcID())) {
+
+                    int total = (cc.get(i).getcQuantity()) - quantity;
+                    
+                    if (quantity > cc.get(i).getcQuantity()) {
+                            System.out.println("Sorry, stock is not enough.");
+                            System.out.print("Please enter again:");
+                            quantity = sc.nextInt();
+                        
+                        while (quantity > cc.get(i).getcQuantity()) {
+                            System.out.println("Sorry, stock is not enough.");
+                            System.out.print("Please enter again: ");
+                            quantity = sc.nextInt();
+                        }
+                    }
+                    cc.get(i).setcID(cc.get(i).getcID());
+                    cc.get(i).setcType(cc.get(i).getcType());
+                    cc.get(i).setcQuantity((total));
+                    cc.get(i).setcPrice(cc.get(i).getcPrice());
+                    cc.get(i).setStock(cc.get(i).getStock());
+
+                    price = cc.get(i).getcPrice() * quantity;
+                    // totalPrice += price;
+                }
+            }
+            double credit = 0;
+            for (int i = 0; i < cust.size(); i++) {
+                if (CustId.equals(cust.get(i).getCustId()) && "Cooperate".equals(cust.get(i).getCustomerType())) {
+                    credit = (Double.parseDouble(cust.get(i).getCreditLimit()) - price);
+                    cust.get(i).setCreditLimit(String.valueOf(credit));
+                    credit = Double.parseDouble(cust.get(i).getCreditLimit());
+
+                    if (credit <= 0) {
+                        System.out.print("Sorry, you have exceed your credit limit.");
+
+                        System.out.print("\nPlease enter y to go back menu : ");
+                        select = sc.next();
+
+                        if (select.equals("y")) {
+                            CustMenu();
+                        }
+                        while (!"y".equals(select)) {
+
+                            System.out.print("Please type y:");
+                            select = sc.next();
+                        }
+
+                    }
+                }
+            }
+
+
+            System.out.print("Please enter pick up method      : ");
+            System.out.print("\n(1 = self pick-up / 2 = delivery) ");
+
+            while (!sc.hasNextInt()) {
+                System.out.print("Invalid input, Please try again : ");
+                sc.next();
+
+            }
+            int method = sc.nextInt();
+
+            if (method == 1) {
+                methodType = "Self Pick-up";
+
+            } else if (method == 2) {
+                methodType = "Delivery";
+                System.out.print("\nPlease enter pick-up address: ");
+                sc.nextLine();
+            } else {
+
+                System.out.print("\nInvalid input ");
+            }
+
+            address = sc.nextLine();
+
+            System.out.print("\nPlease enter pick-up date (DD/MM/YY): ");
+            date = sc.next();
+
+            System.out.print("\nDo you want to continue order?(y = yes, n = no):");
+
+            choice = sc.next();
+
+            while (!"n".equals(choice) && !"y".equals(choice)) {
+                System.out.print("Please type y or n:");
+                choice = sc.next();
+            }
+
+            System.out.print("\nOrder Summary Details\n");
+            System.out.print("------------------------\n");
+            System.out.print(" Id: " + cID);
+            System.out.println("\nQuantity: " + quantity);
+
+        } while (!"n".equals(choice));
+
+        System.out.println("\nTotal price: " + price);
+
+        System.out.println("\nPick up method: " + methodType);
+
+        System.out.println("\nPick up date: " + date);
+        if (methodType.equals("Delivery")) {
+            System.out.println("\nPick up address: " + address);
+        }
+
+          if (order.isEmpty()) {
+            orderId += String.format("%02d", order.size() + 1);
+        } else {
+            int lastEidNumber = Integer.parseInt(order.get(order.size() - 1).getOrderId().substring(1));
+            orderId = "O" + String.format("%02d", lastEidNumber + 1);
+        }
+
+        order.add(new Order(orderId, "Lucas", date, methodType, "   Pending", "    Pending", String.valueOf(price),address));
+
+        System.out.println("\nThank you, please come again.");
+
+        CustMenu();
+      
+    }
+
 
     public static void recordTimestamp() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
